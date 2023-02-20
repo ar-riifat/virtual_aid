@@ -29,10 +29,10 @@ class HomeScreen extends StatelessWidget {
   ];
 
   List<Icon> hospitalsIcon = const [
-    Icon(MdiIcons.hospitalBoxOutline, color: Colors.blue, size: 30),
-    Icon(MdiIcons.hospitalBoxOutline, color: Colors.blue, size: 30),
-    Icon(MdiIcons.hospitalBoxOutline, color: Colors.blue, size: 30),
-    Icon(MdiIcons.hospitalBoxOutline, color: Colors.blue, size: 30),
+    Icon(null, color: Colors.blue, size: 30),
+    Icon(null, color: Colors.blue, size: 30),
+    Icon(null, color: Colors.blue, size: 30),
+    Icon(null, color: Colors.blue, size: 30),
   ];
 
   @override
@@ -40,42 +40,69 @@ class HomeScreen extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       backgroundColor: const Color(0xFFD9E4EE),
+      endDrawer: Drawer(
+        child: Container(
+          color: Theme.of(context).primaryColor.withOpacity(0.8),
+          child: ListView(
+            children: [
+              ListTile(
+                leading: const Icon(MdiIcons.doctor),
+                title: const Text(
+                  "List All Doctors",
+                  style: TextStyle(
+                    fontSize: 21,
+                    color: Colors.white,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AllDoctorList(),
+                    ),
+                  );
+                },
+              ),
+              const Divider(color: Colors.black),
+              ListTile(
+                leading: const Icon(MdiIcons.note),
+                title: const Text(
+                  "Your Appointments",
+                  style: TextStyle(
+                    fontSize: 21,
+                    color: Colors.white,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AppointmentList(),
+                    ),
+                  );
+                },
+              ),
+              const Divider(color: Colors.black),
+              ListTile(
+                leading: const Icon(MdiIcons.heart),
+                title: const Text(
+                  "Favorites",
+                  style: TextStyle(
+                    fontSize: 21,
+                    color: Colors.white,
+                  ),
+                ),
+                onTap: () {},
+              ),
+              const Divider(color: Colors.black),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         title: const Text('Doctor Appointment'),
-        actions: [
-          PopupMenuButton<int>(
-            color: const Color.fromARGB(255, 204, 200, 200),
-            icon: const Icon(Icons.menu),
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-              const PopupMenuItem<int>(
-                value: 0,
-                child: Text('List All Doctors'),
-              ),
-              const PopupMenuItem<int>(
-                value: 1,
-                child: Text('Your Appointments'),
-              ),
-              const PopupMenuItem<int>(
-                value: 2,
-                child: Text('Favorites Doctors'),
-              ),
-            ],
-            onSelected: (int value) {
-              if (value == 0) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AllDoctorList()),
-                );
-              }
-              if (value == 1) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AppointmentList()),
-                );
-              }
-            },
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Stack(

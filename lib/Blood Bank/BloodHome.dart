@@ -1,90 +1,133 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'DonorList.dart' ;
 
 class BloodHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 228, 212, 214),
-      appBar: AppBar(
-        title: const Text("Blood Bank"),
-        actions: [
-          PopupMenuButton<int>(
-            color: const Color.fromARGB(255, 204, 200, 200),
-            icon: const Icon(Icons.menu),
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-              const PopupMenuItem<int>(
-                value: 0,
-                child: Text('List All Donor'),
+      backgroundColor: const Color.fromARGB(255, 243, 197, 193),
+      endDrawer: Drawer(
+        child: Container(
+          color: Colors.red.withOpacity(0.65),
+          child: ListView(
+            children: [
+              ListTile(
+                leading: const Icon(MdiIcons.doctor),
+                title: const Text(
+                  "List All Blood Donor",
+                  style: TextStyle(
+                    fontSize: 21,
+                    color: Colors.white,
+                  ),
+                ),
+                onTap: () {},
               ),
+              const Divider(color: Colors.black),
+              ListTile(
+                leading: const Icon(MdiIcons.note),
+                title: const Text(
+                  "Dummy",
+                  style: TextStyle(
+                    fontSize: 21,
+                    color: Colors.white,
+                  ),
+                ),
+                onTap: () {},
+              ),
+              const Divider(color: Colors.black),
+              ListTile(
+                leading: const Icon(MdiIcons.heart),
+                title: const Text(
+                  "Dummy",
+                  style: TextStyle(
+                    fontSize: 21,
+                    color: Colors.white,
+                  ),
+                ),
+                onTap: () {},
+              ),
+              const Divider(color: Colors.black),
             ],
-            onSelected: (int value) {
-              if (value == 0) {}
-            },
           ),
-        ],
+        ),
+      ),
+      appBar: AppBar(
+        title: const Text('Blood Bank'),
+        backgroundColor: Colors.red.withOpacity(0.85),
       ),
       body: SingleChildScrollView(
         child: Stack(
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 4,
+              height: MediaQuery.of(context).size.height / 4.0,
               decoration: BoxDecoration(
-                color: Colors.red.withOpacity(0.9),
+                color: Colors.red.withOpacity(0.75),
                 borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 20),
               child: Column(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: CircleAvatar(
-                      radius: 30,
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        "Welcome, ",
-                        style: TextStyle(
-                          fontSize: 20,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const CircleAvatar(
+                          radius: 30,
+                          //backgroundImage: AssetImage('User Photo from Firebase'),
                         ),
-                      ),
-                      Text(
-                        FirebaseAuth.instance.currentUser!.email!,
-                        style: const TextStyle(
-                          fontSize: 20,
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            const Text(
+                              "Welcome,", //Also add username from Firebase
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            Text(
+                              user.email!,
+                              style: const TextStyle(
+                                fontSize: 24,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 50, bottom: 10),
-                    width: MediaQuery.of(context).size.width / 1.1,
-                    height: 55,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "   Search for Blood Group......",
-                        hintStyle: TextStyle(
-                          color: Colors.black.withOpacity(0.3),
+                        const SizedBox(height: 15),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          width: MediaQuery.of(context).size.width,
+                          height: 55,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "   Search for Blood Group......",
+                              hintStyle: TextStyle(
+                                color: Colors.black.withOpacity(0.3),
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.search,
+                                size: 20,
+                              ),
+                            ),
+                          ),
                         ),
-                        prefixIcon: const Icon(
-                          Icons.search,
-                          size: 20,
-                        ),
-                      ),
+                      ],
                     ),
                   ),
                   Container(
@@ -92,37 +135,55 @@ class BloodHome extends StatelessWidget {
                     //   color: Colors.blue,
                     // ),
                     padding: const EdgeInsets.only(
-                      left: 5,
-                      top: 10,
+                      left: 10,
+                      top: 20,
+                      bottom: 20,
                     ),
                     alignment: AlignmentDirectional.centerStart,
                     child: const Text(
-                      'Blood Group',
+                      'Which Blood group are you looking for?',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.black,
                       ),
                     ),
                   ),
-                  Container(
-                    child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: bloodGroup.length,
-                      itemBuilder: (context, index) => Column(
-                        children: [
-                          Container(
-                            width: 50,
-                            height: 100,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFFF2F8FF),
-                              shape: BoxShape.circle,
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics:const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2,
+                    mainAxisSpacing: 5,
+
+                     ),
+                     itemCount: bloodGroup.length,
+                     itemBuilder: (context, index) {
+                       return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) {
+                                return DonorList();
+                              },
+                            ),
+                          );
+                        },
+                         child: CircleAvatar(
+                          backgroundColor: Colors.blue,
+                          child:Text(
+                            bloodGroup[index],
+                            style: const TextStyle( 
+                            color:Colors.black,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold
                             ),
                           ),
-                        ],
-                      ),
-                    ),
+                                             ),
+                       );
+                     }
                   ),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
@@ -134,12 +195,12 @@ class BloodHome extends StatelessWidget {
 }
 
 List bloodGroup = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
+  'A+',
+  'A-',
+  'B+',
+  'B-',
+  'AB+',
+  'AB-',
+  'O+',
+  'O-',
 ];
