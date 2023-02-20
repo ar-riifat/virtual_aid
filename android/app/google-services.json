@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "463944863957",
+    "project_id": "fir-auth-f0030",
+    "storage_bucket": "fir-auth-f0030.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463944863957:android:1a8cf2ca15b7cb0bac525c",
+        "android_client_info": {
+          "package_name": "com.example.med_aid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463944863957-gr7vnqlgmfji9nlcs89bv3q7sn9b8g6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm6pE0ZCSRlcfM3w_qWpKCVt76grhboHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463944863957-gr7vnqlgmfji9nlcs89bv3q7sn9b8g6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
