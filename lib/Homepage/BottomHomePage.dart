@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Ambulance/AmbulanceHome.dart';
 import '../Blood Bank/BloodHome.dart';
-import '../CreateCase/CaseHome.dart';
+import '../MedicineReminder/MedicineReminder.dart';
 import '../Doctor Appoinment/HomeScreen.dart';
 
 class BottomHomePage extends StatelessWidget {
@@ -33,13 +33,13 @@ class BottomHomePage extends StatelessWidget {
       },
     ),
     FeaturesList(
-      'assets/case-study.png',
-      'Create a Case',
+      'assets/medicinereminder.png',
+      'Medicine Reminder',
       (context) {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (_) {
-              return CaseHome();
+              return MedicineReminder();
             },
           ),
         );

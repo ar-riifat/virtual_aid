@@ -88,7 +88,7 @@ class _AddDonorState extends State<AddDonor> {
             },
           ),
          DropdownButton(
-          value: bloodGroupvalue,
+          value: bloodGroupValue,
             hint: const Text("Blood Group"),
             items: bloodGroup.map<DropdownMenuItem<String>>(
               (e) {
@@ -98,7 +98,7 @@ class _AddDonorState extends State<AddDonor> {
                 );
               },
             ).toList(),
-            onChanged: (String? value) {
+            onChanged: (value) {
               setState(() {
                 bloodGroupValue = value;
                 
