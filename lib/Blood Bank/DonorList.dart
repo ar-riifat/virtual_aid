@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 import 'AddDonor.dart';
 
 class DonorList extends StatefulWidget {
+  final String bloodGroup;
+  DonorList({
+    required this.bloodGroup,
+  });
+
   @override
   State<DonorList> createState() => _DonorListState();
 }
@@ -14,8 +19,10 @@ class _DonorListState extends State<DonorList> {
   @override
   void initState() {
     super.initState();
-    _DonorDetailsStream =
-        FirebaseFirestore.instance.collection("DonorList").snapshots();
+    _DonorDetailsStream = FirebaseFirestore.instance
+        .collection("DonorList")
+        .where('bloodgroup', isEqualTo: widget.bloodGroup)
+        .snapshots();
   }
 
   @override
@@ -84,7 +91,7 @@ class _DonorListState extends State<DonorList> {
                                   color: Colors.black,
                                 ),
                               ),
-                             const SizedBox(height: 5),
+                              const SizedBox(height: 5),
                               Text(
                                 snapshot.data!.docs[index]['phonenumber'],
                                 style: TextStyle(
@@ -94,7 +101,7 @@ class _DonorListState extends State<DonorList> {
                               ),
                             ],
                           ),
-                           Padding(
+                          Padding(
                             padding: const EdgeInsets.only(right: 50),
                             child: Text(
                               snapshot.data!.docs[index]['bloodgroup'],

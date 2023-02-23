@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'DonorList.dart' ;
+import 'DonorList.dart';
 
 class BloodHome extends StatelessWidget {
   @override
@@ -150,38 +150,38 @@ class BloodHome extends StatelessWidget {
                   ),
                   GridView.builder(
                     shrinkWrap: true,
-                    physics:const NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 2,
-                    mainAxisSpacing: 5,
-
-                     ),
-                     itemCount: bloodGroup.length,
-                     itemBuilder: (context, index) {
-                       return InkWell(
+                      crossAxisCount: 2,
+                      childAspectRatio: 2,
+                      mainAxisSpacing: 5,
+                    ),
+                    itemCount: bloodGroup.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
                         onTap: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) {
-                                return DonorList();
+                              builder: (context) {
+                                return DonorList(
+                                  bloodGroup: bloodGroup[index],
+                                );
                               },
                             ),
                           );
                         },
-                         child: CircleAvatar(
+                        child: CircleAvatar(
                           backgroundColor: Colors.blue,
-                          child:Text(
+                          child: Text(
                             bloodGroup[index],
-                            style: const TextStyle( 
-                            color:Colors.black,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold
-                            ),
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
                           ),
-                                             ),
-                       );
-                     }
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 10),
                 ],

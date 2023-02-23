@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:med_aid/Blood%20Bank/BloodHome.dart';
 
@@ -5,6 +6,7 @@ class AddDonor extends StatefulWidget {
   @override
   State<AddDonor> createState() => _AddDonorState();
 }
+
 class _AddDonorState extends State<AddDonor> {
   final TextEditingController controllerName = TextEditingController();
   final TextEditingController controllerAge = TextEditingController();
@@ -16,6 +18,19 @@ class _AddDonorState extends State<AddDonor> {
   String? location;
   int? age;
   String? bloodGroupValue;
+
+  Future<void> uploadDonorList() async {
+    CollectionReference donorRef =
+        FirebaseFirestore.instance.collection('DonorList');
+
+    await donorRef.doc().set({
+      'name': name,
+      'age': age,
+      'location': location,
+      'phonenumber': phone,
+      'bloodgroup': bloodGroupValue,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +102,8 @@ class _AddDonorState extends State<AddDonor> {
               phone = value;
             },
           ),
-         DropdownButton(
-          value: bloodGroupValue,
+          DropdownButton(
+            value: bloodGroupValue,
             hint: const Text("Blood Group"),
             items: bloodGroup.map<DropdownMenuItem<String>>(
               (e) {
@@ -101,18 +116,18 @@ class _AddDonorState extends State<AddDonor> {
             onChanged: (value) {
               setState(() {
                 bloodGroupValue = value;
-                
-              }
-              );
+              });
             },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
-              onPressed: (){},
+              onPressed: () {
+                uploadDonorList();
+              },
               child: const Text("Submit"),
-              ),
-          ), 
+            ),
+          ),
         ],
       ),
     );

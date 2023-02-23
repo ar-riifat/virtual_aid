@@ -14,6 +14,7 @@ class _SearchListState extends State<SearchList> {
   bool _isLoading = false;
 
   Future<void> _searchDoctors(String searchQuery) async {
+    
     setState(() {
       _isLoading = true;
     });
