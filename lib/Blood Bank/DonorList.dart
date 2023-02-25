@@ -5,7 +5,8 @@ import 'AddDonor.dart';
 
 class DonorList extends StatefulWidget {
   final String bloodGroup;
-  DonorList({
+
+  const DonorList({
     required this.bloodGroup,
   });
 
@@ -79,7 +80,7 @@ class _DonorListState extends State<DonorList> {
                               Text(
                                 snapshot.data!.docs[index]['name'],
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 22,
                                   color: Colors.black,
                                 ),
                               ),

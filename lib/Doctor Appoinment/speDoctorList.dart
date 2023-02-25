@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, camel_case_types, use_key_in_widget_constructors, non_constant_identifier_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'DoctorDetails.dart';
 
 class speDoctorList extends StatefulWidget {
   final String specialistName;
+
   speDoctorList({
     required this.specialistName,
   });
@@ -105,7 +108,7 @@ class _speDoctorListState extends State<speDoctorList> {
                                   Text(
                                     snapshot.data!.docs[index]['name'],
                                     style: const TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 28,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),

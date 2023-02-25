@@ -1,9 +1,10 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors, library_private_types_in_public_api
+
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as path;
 
 class AddDoctor extends StatefulWidget {
   @override
@@ -93,7 +94,6 @@ class _AddDoctorState extends State<AddDoctor> {
           String imageUrl = await uploadDoctorImage(); // First upload the image
           await uploadDoctorInfo(imageUrl); // Then upload the doctor info
         } catch (error) {
-          print(error);
           showDialog(
             context: context,
             builder: (_) => AlertDialog(

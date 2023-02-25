@@ -1,10 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: file_names, use_key_in_widget_constructors, sized_box_for_whitespace
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'SearchList.dart';
 import 'AppointmentList.dart';
 import 'AllDoctorList.dart';
-import 'SearchList.dart';
 import 'speDoctorList.dart';
 import 'HosDoctorList.dart';
 

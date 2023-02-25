@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_key_in_widget_constructors
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -113,29 +115,6 @@ class BloodHome extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 15),
-                        Container(
-                          margin: const EdgeInsets.only(top: 10, bottom: 10),
-                          width: MediaQuery.of(context).size.width,
-                          height: 55,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "   Search for Blood Group......",
-                              hintStyle: TextStyle(
-                                color: Colors.black.withOpacity(0.3),
-                              ),
-                              prefixIcon: const Icon(
-                                Icons.search,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -145,8 +124,8 @@ class BloodHome extends StatelessWidget {
                     // ),
                     padding: const EdgeInsets.only(
                       left: 10,
-                      top: 20,
-                      bottom: 20,
+                      top: 5,
+                      bottom: 30,
                     ),
                     alignment: AlignmentDirectional.centerStart,
                     child: const Text(
@@ -160,7 +139,8 @@ class BloodHome extends StatelessWidget {
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 2,
                       mainAxisSpacing: 5,
@@ -192,7 +172,6 @@ class BloodHome extends StatelessWidget {
                       );
                     },
                   ),
-                  const SizedBox(height: 10),
                 ],
               ),
             ),

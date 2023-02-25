@@ -1,6 +1,7 @@
+// ignore_for_file: use_key_in_widget_constructors, file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:med_aid/Blood%20Bank/BloodHome.dart';
 
 class AddDonor extends StatefulWidget {
   @override
@@ -120,8 +121,13 @@ class _AddDonorState extends State<AddDonor> {
             },
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(40.0),
             child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Colors.red.withOpacity(0.9),
+                ),
+              ),
               onPressed: () {
                 uploadDonorList();
               },

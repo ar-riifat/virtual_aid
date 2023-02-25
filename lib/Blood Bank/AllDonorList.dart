@@ -1,11 +1,11 @@
+// ignore_for_file: use_key_in_widget_constructors, file_names, non_constant_identifier_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'AddDonor.dart';
 
 class AllDonorList extends StatefulWidget {
-
-
   @override
   State<AllDonorList> createState() => _AllDonorListState();
 }
@@ -16,9 +16,8 @@ class _AllDonorListState extends State<AllDonorList> {
   @override
   void initState() {
     super.initState();
-    _DonorDetailsStream = FirebaseFirestore.instance
-        .collection("DonorList")
-        .snapshots();
+    _DonorDetailsStream =
+        FirebaseFirestore.instance.collection("DonorList").snapshots();
   }
 
   @override
@@ -98,12 +97,25 @@ class _AllDonorListState extends State<AllDonorList> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 50),
-                            child: Text(
-                              snapshot.data!.docs[index]['bloodgroup'],
-                              style: const TextStyle(
-                                fontSize: 24,
-                              ),
+                            padding: const EdgeInsets.only(right: 30),
+                            child: Column(
+                              children: [
+                                Text(
+                                  snapshot.data!.docs[index]['bloodgroup'],
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  snapshot.data!.docs[index]['location'],
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
