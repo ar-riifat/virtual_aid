@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'AllDonorList.dart';
 import 'DonorList.dart';
 
 class BloodHome extends StatelessWidget {
@@ -23,7 +24,15 @@ class BloodHome extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) {
+                        return AllDonorList();
+                      },
+                    ),
+                  );
+                },
               ),
               const Divider(color: Colors.black),
               ListTile(

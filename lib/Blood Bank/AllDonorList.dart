@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'AddDonor.dart';
 
-class DonorList extends StatefulWidget {
-  final String bloodGroup;
-  DonorList({
-    required this.bloodGroup,
-  });
+class AllDonorList extends StatefulWidget {
+
 
   @override
-  State<DonorList> createState() => _DonorListState();
+  State<AllDonorList> createState() => _AllDonorListState();
 }
 
-class _DonorListState extends State<DonorList> {
+class _AllDonorListState extends State<AllDonorList> {
   late final Stream<QuerySnapshot> _DonorDetailsStream;
 
   @override
@@ -21,7 +18,6 @@ class _DonorListState extends State<DonorList> {
     super.initState();
     _DonorDetailsStream = FirebaseFirestore.instance
         .collection("DonorList")
-        .where('bloodgroup', isEqualTo: widget.bloodGroup)
         .snapshots();
   }
 
@@ -79,14 +75,14 @@ class _DonorListState extends State<DonorList> {
                               Text(
                                 snapshot.data!.docs[index]['name'],
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 22,
                                   color: Colors.black,
                                 ),
                               ),
                               const SizedBox(height: 5),
                               Text(
                                 snapshot.data!.docs[index]['age'].toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.black,
                                 ),
@@ -94,7 +90,7 @@ class _DonorListState extends State<DonorList> {
                               const SizedBox(height: 5),
                               Text(
                                 snapshot.data!.docs[index]['phonenumber'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   color: Colors.black,
                                 ),

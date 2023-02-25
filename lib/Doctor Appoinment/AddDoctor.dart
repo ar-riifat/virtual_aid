@@ -24,6 +24,7 @@ class _AddDoctorState extends State<AddDoctor> {
   String? hospitalValue; //
   String? description; //
   File? _image; //
+  String uniqueName = DateTime.now().millisecondsSinceEpoch.toString();
 
   //ImagePicker Function
   Future pickDoctorImage() async {
@@ -50,7 +51,7 @@ class _AddDoctorState extends State<AddDoctor> {
   //Upload doctor image to Firebase Storage
   Future<String> uploadDoctorImage() async {
     Reference storageReference =
-        FirebaseStorage.instance.ref().child('DoctorListPhotos/');
+        FirebaseStorage.instance.ref().child('DoctorPhotos/$uniqueName');
     UploadTask uploadTask = storageReference.putFile(_image!);
     await uploadTask.whenComplete(() => null);
     String doctorImageUrl = await storageReference.getDownloadURL();
