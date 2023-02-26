@@ -276,5 +276,5 @@ List<String> hospitalList = [
   'Al-Haramain',
   'IBN-Sina',
   'Mount-Adora',
-  'Heart Foundation',
+  'Heart-Foundation',
 ];

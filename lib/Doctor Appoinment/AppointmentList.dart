@@ -56,7 +56,7 @@ class _AppointmentListState extends State<AppointmentList> {
                             Text(
                               snapshot.data!.docs[index]['doctorName'],
                               style: const TextStyle(
-                                fontSize: 28,
+                                fontSize: 15,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

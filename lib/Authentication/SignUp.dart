@@ -52,7 +52,6 @@ class _SignUpState extends State<SignUp> {
         CustomSnackBar.showSnackBar(context, 'All fields are required.');
       } else {
         // Check if email already exists
-        print("Checking email");
         final emailSnapshot = await _usersCollectionRef
             .where('email', isEqualTo: _emailController.text.trim())
             .get();
@@ -63,13 +62,13 @@ class _SignUpState extends State<SignUp> {
         }
 
         // Check if username already exists
-        final usernameSnapshot = await _usersCollectionRef
-            .where('username', isEqualTo: _usernameController.text)
-            .get();
-        if (usernameSnapshot.docs.isNotEmpty) {
-          return CustomSnackBar.showSnackBar(
-              context, 'This username is already taken.');
-        }
+        // final usernameSnapshot = await _usersCollectionRef
+        //     .where('username', isEqualTo: _usernameController.text)
+        //     .get();
+        // if (usernameSnapshot.docs.isNotEmpty) {
+        //   return CustomSnackBar.showSnackBar(
+        //       context, 'This username is already taken.');
+        // }
 
         // Create new user
         final userCredential = await _auth.createUserWithEmailAndPassword(
@@ -94,6 +93,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
+        height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [

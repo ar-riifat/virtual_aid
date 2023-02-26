@@ -21,7 +21,20 @@ class _SignInState extends State<SignIn> {
 
   final _passwordController = TextEditingController();
 
+  bool isLoading = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   Future<void> logIn(BuildContext context) async {
+    setState(() {
+      isLoading = true;
+    });
+
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -40,12 +53,18 @@ class _SignInState extends State<SignIn> {
         );
       }
     }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
+  @override
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Container(
+        height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -58,85 +77,97 @@ class _SignInState extends State<SignIn> {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child: SingleChildScrollView(
+            child: Stack(
               children: [
-                const SizedBox(height: 30.0),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: Text(
-                    "Welcome Back!",
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ),
-                const SizedBox(height: 30.0),
-                TextFormField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    hintText: "Email",
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email address';
-                    }
-                    if (!value.contains('@')) {
-                      return 'Please enter a valid email address';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16.0),
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: "Password",
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    if (value.length < 7) {
-                      return 'Password must be at least 7 characters long';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 30.0),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        logIn(context);
-                      }
-                    },
-                    child: const Text("Log In"),
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                Center(
-                  child: RichText(
-                    text: TextSpan(
-                      text: 'No Account? ',
-                      style: const TextStyle(
-                        color: Colors.black,
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 30.0),
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        child: Text(
+                          "Welcome Back!",
+                          style: Theme.of(context).textTheme.headline6,
+                        ),
                       ),
-                      children: [
-                        TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = widget.onClickedSignUp,
-                          text: 'Sign Up',
-                          style: const TextStyle(
-                            color: Colors.blue,
+                      const SizedBox(height: 30.0),
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: const InputDecoration(
+                          hintText: "Email",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your email address';
+                          }
+                          if (!value.contains('@')) {
+                            return 'Please enter a valid email address';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 16.0),
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          hintText: "Password",
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          if (value.length < 7) {
+                            return 'Password must be at least 7 characters long';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 30.0),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              logIn(context);
+                            }
+                          },
+                          child: const Text("Log In"),
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      Center(
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'No Account? ',
+                            style: const TextStyle(
+                              color: Colors.black,
+                            ),
+                            children: [
+                              TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = widget.onClickedSignUp,
+                                text: 'Sign Up',
+                                style: const TextStyle(
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
+                if (isLoading)
+                  const Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
               ],
             ),
           ),

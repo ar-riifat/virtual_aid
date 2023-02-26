@@ -6,6 +6,7 @@ import '../Blood Bank/BloodHome.dart';
 import '../MedicineReminder/MedicineReminder.dart';
 import '../Doctor Appoinment/HomeScreen.dart';
 
+
 class BottomHomePage extends StatelessWidget {
   List<FeaturesList> featuresList = [
     FeaturesList(
@@ -60,6 +61,7 @@ class BottomHomePage extends StatelessWidget {
         );
       },
     ),
+
   ];
 
   @override

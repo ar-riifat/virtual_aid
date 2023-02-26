@@ -121,7 +121,7 @@ class DoctorDetails extends StatelessWidget {
                           Text(
                             doctorDetails['name'],
                             style: const TextStyle(
-                              fontSize: 28,
+                              fontSize: 15,
                               fontWeight: FontWeight.w500,
                               color: Colors.blue,
                             ),
@@ -159,26 +159,6 @@ class DoctorDetails extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               color: Colors.black,
                             ),
-                          ),
-                          Row(
-                            children: [
-                              const Text(
-                                'Experience: ',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                doctorDetails['age'].toString(),
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
                           ),
                         ],
                       ),

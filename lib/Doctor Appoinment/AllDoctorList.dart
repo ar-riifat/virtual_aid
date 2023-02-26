@@ -101,7 +101,7 @@ class _AllDoctorListState extends State<AllDoctorList> {
                                   Text(
                                     snapshot.data!.docs[index]['name'],
                                     style: const TextStyle(
-                                      fontSize: 28,
+                                      fontSize: 17,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
