@@ -18,17 +18,15 @@ class DoctorDetails extends StatelessWidget {
 
     if (userEmail != null) {
       // Create a new document in the DoctorAppointment collection with the appointment information
-      FirebaseFirestore.instance
-          .collection('DoctorAppointment')
-          .add({
-            'dateTime': selectedDateTime,
-            'doctorName': doctorName,
-            'hospitalName': hospitalName,
-            'specialistName': specialistName,
-            'userEmail': userEmail,
-          })
-          .then((value) => print("Appointment saved"))
-          .catchError((error) => print("Failed to save appointment: $error"));
+      FirebaseFirestore.instance.collection('RequestAppointment').add(
+        {
+          'dateTime': selectedDateTime,
+          'doctorName': doctorName,
+          'hospitalName': hospitalName,
+          'specialistName': specialistName,
+          'userEmail': userEmail,
+        },
+      );
     }
   }
 
@@ -121,7 +119,7 @@ class DoctorDetails extends StatelessWidget {
                           Text(
                             doctorDetails['name'],
                             style: const TextStyle(
-                              fontSize: 15,
+                              fontSize: 28,
                               fontWeight: FontWeight.w500,
                               color: Colors.blue,
                             ),
@@ -160,6 +158,7 @@ class DoctorDetails extends StatelessWidget {
                               color: Colors.black,
                             ),
                           ),
+
                         ],
                       ),
                       Text(

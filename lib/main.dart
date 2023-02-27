@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, use_key_in_widget_constructors
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,17 +12,6 @@ import 'Homepage/HomePage.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future main() async {
-  AwesomeNotifications().initialize(
-    null,
-    [
-      NotificationChannel(
-        channelKey: 'basic_channel',
-        channelName: 'Basic Notifications',
-        channelDescription: 'Description',
-      )
-    ],
-    debug: false,
-  );
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -73,7 +61,12 @@ class MainPage extends StatelessWidget {
             } else if (snapshot.hasError) {
               return const Center(child: Text('Something went wrong!'));
             } else if (snapshot.hasData) {
-              return HomePage();
+              final user = snapshot.data!;
+              if (user.emailVerified) {
+                return HomePage();
+              } else {
+                return AuthPage();
+              }
             } else {
               return AuthPage();
             }

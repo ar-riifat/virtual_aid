@@ -40,6 +40,54 @@ class _BottomMenuPageState extends State<BottomMenuPage> {
             ),
             const SizedBox(height: 20),
             ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('About'),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('About'),
+                      content: const Text(
+                          'Virtual Aid is a mobile application designed to provide essential medical assistance to people in need. With features like Doctor Appointment, Blood Bank, Medicine Reminder & Ambulance List, and an authentication process using email, the app aims to simplify the process of accessing healthcare. \n\nThe project was developed using mobile application development tools and user research, resulting in successful user testing and positive user feedback. Virtual Aid is a valuable resource for individuals seeking efficient and convenient healthcare services, improving access to medical assistance and providing reliable healthcare solutions.'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Got It'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.admin_panel_settings),
+              title: const Text('Contact Admin'),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('About'),
+                      content: const Text(
+                          'This is some dummy text.asdassssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Got It'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Log Out'),
               onTap: () {

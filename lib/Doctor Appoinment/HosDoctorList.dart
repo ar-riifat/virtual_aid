@@ -107,27 +107,27 @@ class _HosDoctorListState extends State<HosDoctorList> {
                                   Text(
                                     snapshot.data!.docs[index]['name'],
                                     style: const TextStyle(
-                                      fontSize: 17,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
                                     snapshot.data!.docs[index]['specialist'],
                                     style: const TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 17,
                                     ),
                                   ),
                                   Text(
                                     snapshot.data!.docs[index]['hospital'],
                                     style: const TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 17,
                                     ),
                                   ),
                                   Text(
                                     snapshot.data!.docs[index]['age']
                                         .toString(),
                                     style: const TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 17,
                                     ),
                                   ),
                                 ],
@@ -135,7 +135,7 @@ class _HosDoctorListState extends State<HosDoctorList> {
                             ],
                           ),
                           if (FirebaseAuth.instance.currentUser!.email ==
-                              'admin@gmail.com')
+                              'nimda884@gmail.com')
                             Align(
                               alignment: Alignment.bottomRight,
                               child: IconButton(
@@ -184,7 +184,7 @@ class _HosDoctorListState extends State<HosDoctorList> {
         },
       ),
       floatingActionButton:
-          FirebaseAuth.instance.currentUser!.email == 'admin@gmail.com'
+          FirebaseAuth.instance.currentUser!.email == 'nimda884@gmail.com'
               ? FloatingActionButton(
                   backgroundColor: Colors.blue,
                   onPressed: () {

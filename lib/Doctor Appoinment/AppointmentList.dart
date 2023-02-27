@@ -18,7 +18,7 @@ class _AppointmentListState extends State<AppointmentList> {
         title: const Text('Appointments'),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseAuth.instance.currentUser!.email == 'admin@gmail.com'
+        stream: FirebaseAuth.instance.currentUser!.email == 'nimda884@gmail.com'
             ? FirebaseFirestore.instance
                 .collection('DoctorAppointment')
                 .snapshots()
@@ -56,7 +56,7 @@ class _AppointmentListState extends State<AppointmentList> {
                             Text(
                               snapshot.data!.docs[index]['doctorName'],
                               style: const TextStyle(
-                                fontSize: 15,
+                                fontSize: 28,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -87,7 +87,7 @@ class _AppointmentListState extends State<AppointmentList> {
                         ),
                       ),
                       if (FirebaseAuth.instance.currentUser!.email ==
-                          'admin@gmail.com')
+                          'nimda884@gmail.com')
                         Align(
                           alignment: Alignment.bottomRight,
                           child: IconButton(
@@ -98,7 +98,7 @@ class _AppointmentListState extends State<AppointmentList> {
                                   return AlertDialog(
                                     title: const Text('Delete Doctor'),
                                     content: const Text(
-                                        'Are you sure you want to delete this doctor?'),
+                                        'Are you sure you want to delete this Appointment?'),
                                     actions: [
                                       TextButton(
                                         child: const Text('Cancel'),

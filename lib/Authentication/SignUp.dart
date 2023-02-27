@@ -1,11 +1,11 @@
-// ignore_for_file: use_build_context_synchronously, invalid_return_type_for_catch_error, unnecessary_null_comparison, file_names, library_private_types_in_public_api
+// ignore_for_file: use_build_context_synchronously, invalid_return_type_for_catch_error, unnecessary_null_comparison, file_names, library_private_types_in_public_api, use_key_in_widget_constructors
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'snackBar.dart';
+import '../snackBar.dart';
 
 class SignUp extends StatefulWidget {
   final Function() onClickedSignIn;
@@ -21,11 +21,15 @@ class _SignUpState extends State<SignUp> {
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneNumberController = TextEditingController();
+  final _conphoneNumberController = TextEditingController();
   final _addressController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   final _usersCollectionRef = FirebaseFirestore.instance.collection('Users');
+
+  bool _obscureText = true;
+  bool _conobscureText = true;
 
   @override
   void dispose() {
@@ -61,30 +65,25 @@ class _SignUpState extends State<SignUp> {
           return;
         }
 
-        // Check if username already exists
-        // final usernameSnapshot = await _usersCollectionRef
-        //     .where('username', isEqualTo: _usernameController.text)
-        //     .get();
-        // if (usernameSnapshot.docs.isNotEmpty) {
-        //   return CustomSnackBar.showSnackBar(
-        //       context, 'This username is already taken.');
-        // }
-
-        // Create new user
+        // Create new user to database
         final userCredential = await _auth.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
         if (userCredential != null) {
-          await _usersCollectionRef.doc(userCredential.user!.uid).set({
-            'name': _usernameController.text,
-            'fullName': _fullNameController.text,
-            'email': _emailController.text,
-            'phoneNumber': _phoneNumberController.text,
-            'address': _addressController.text,
-          });
-          CustomSnackBar.showSnackBar(context, 'Account created successfully.');
+          await userCredential.user!.sendEmailVerification();
+          await _usersCollectionRef.doc(userCredential.user!.uid).set(
+            {
+              'name': _usernameController.text,
+              'fullName': _fullNameController.text,
+              'email': _emailController.text,
+              'phoneNumber': _phoneNumberController.text,
+              'address': _addressController.text,
+            },
+          );
         }
+        CopiedSnackBar.showSnackBar(context,
+            'Account created successfully. A verification email has been sent to ${_emailController.text}.');
       }
     }
   }
@@ -205,8 +204,18 @@ class _SignUpState extends State<SignUp> {
                   TextFormField(
                     //obscureText: true,
                     controller: _passwordController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'Password',
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                        child: Icon(_obscureText
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -215,14 +224,29 @@ class _SignUpState extends State<SignUp> {
                       if (value.length < 7) {
                         return 'Password must be at least 7 characters long.';
                       }
+                      if (!value.contains(RegExp(r'\d'))) {
+                        return 'Password should contain at least 1 digit.';
+                      }
                       return null;
                     },
+                    obscureText: _obscureText,
                   ),
                   const SizedBox(height: 10.0),
                   TextFormField(
-                    //obscureText: true,
-                    decoration: const InputDecoration(
+                    obscureText: _conobscureText,
+                    controller: _conphoneNumberController,
+                    decoration: InputDecoration(
                       hintText: 'Confirm Password',
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _conobscureText = !_conobscureText;
+                          });
+                        },
+                        child: Icon(_conobscureText
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {

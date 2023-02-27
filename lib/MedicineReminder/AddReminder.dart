@@ -1,15 +1,11 @@
+// ignore_for_file: file_names, library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AddReminder extends StatefulWidget {
-  final void Function(Timestamp) onReminderAdded;
-
-  AddReminder({
-    required this.onReminderAdded,
-  });
-
   @override
   _AddReminderState createState() => _AddReminderState();
 }
@@ -39,8 +35,6 @@ class _AddReminderState extends State<AddReminder> {
         selectedTime!.minute,
       );
 
-      final Timestamp timestamp = Timestamp.fromDate(dateTime);
-
       CollectionReference reminderRef =
           FirebaseFirestore.instance.collection('MedicineReminderList');
 
@@ -50,7 +44,6 @@ class _AddReminderState extends State<AddReminder> {
         'dateTime': dateTime,
         'userEmail': FirebaseAuth.instance.currentUser!.email,
       });
-      widget.onReminderAdded(timestamp);
       Navigator.of(context).pop();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -195,7 +188,6 @@ class _AddReminderState extends State<AddReminder> {
               padding: const EdgeInsets.all(40.0),
               child: ElevatedButton(
                 onPressed: () {
-                  print('Button pressed');
                   saveReminder();
                 },
                 style: ButtonStyle(

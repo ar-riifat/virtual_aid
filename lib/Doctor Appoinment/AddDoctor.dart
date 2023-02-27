@@ -1,10 +1,12 @@
-// ignore_for_file: file_names, use_key_in_widget_constructors, library_private_types_in_public_api
+// ignore_for_file: file_names, use_key_in_widget_constructors, library_private_types_in_public_api, use_build_context_synchronously
 
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../snackBar.dart';
 
 class AddDoctor extends StatefulWidget {
   @override
@@ -89,6 +91,9 @@ class _AddDoctorState extends State<AddDoctor> {
             ],
           ),
         );
+      } else if (specialistValue == null || hospitalValue == null) {
+        CustomSnackBar.showSnackBar(
+            context, 'Both Specialist and Hospital have to be selected.');
       } else {
         try {
           String imageUrl = await uploadDoctorImage(); // First upload the image
@@ -111,6 +116,7 @@ class _AddDoctorState extends State<AddDoctor> {
         }
       }
     }
+    Navigator.of(context).pop();
   }
 
   @override
@@ -119,12 +125,6 @@ class _AddDoctorState extends State<AddDoctor> {
       backgroundColor: const Color(0xFFD9E4EE),
       appBar: AppBar(
         title: const Text('Add Doctor'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Form(
         key: _formKey,
@@ -255,7 +255,6 @@ class _AddDoctorState extends State<AddDoctor> {
               child: const Text('Submit'),
               onPressed: () {
                 uploadDoctorData();
-                Navigator.pop(context);
               },
             ),
           ],
