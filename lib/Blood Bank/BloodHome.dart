@@ -1,3 +1,4 @@
+
 // ignore_for_file: file_names, use_key_in_widget_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -121,7 +122,7 @@ class BloodHome extends StatelessWidget {
                             top: 5,
                             bottom: 30,
                           ),
-                          alignment: AlignmentDirectional.centerStart,
+                          //alignment: AlignmentDirectional.centerStart,
                           child: const Text(
                             'Which Blood group are you looking for?',
                             style: TextStyle(

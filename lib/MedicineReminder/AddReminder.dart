@@ -1,7 +1,6 @@
 // ignore_for_file: file_names, library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, depend_on_referenced_packages
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,41 +14,37 @@ class _AddReminderState extends State<AddReminder> {
   String? medicineName;
   int? amountPerTime;
   TimeOfDay? selectedTime;
-  DateTime? selectedDate;
+  final List<String> days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-  bool _isWeeklyRepeatOn = false;
+  //bool _isWeeklyRepeatOn = false;
 
   final List<bool> _isSelected = List.generate(7, (index) => false);
 
-  final List<String> _days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
   Future<void> saveReminder() async {
-    if (_formKey.currentState!.validate() &&
-        selectedTime != null &&
-        selectedDate != null) {
-      final dateTime = DateTime(
-        selectedDate!.year,
-        selectedDate!.month,
-        selectedDate!.day,
-        selectedTime!.hour,
-        selectedTime!.minute,
-      );
-
+    if (_formKey.currentState!.validate() && selectedTime != null) {
       CollectionReference reminderRef =
           FirebaseFirestore.instance.collection('MedicineReminderList');
+
+      List<String> selectedDays = [];
+
+      for (int i = 0; i < days.length; i++) {
+        if (_isSelected[i]) {
+          selectedDays.add(days[i]);
+        }
+      }
 
       await reminderRef.doc().set({
         'medName': medicineName,
         'amount': amountPerTime,
-        'dateTime': dateTime,
+        'dateTime': selectedTime!.format(context),
+        'days': selectedDays,
         'userEmail': FirebaseAuth.instance.currentUser!.email,
       });
       Navigator.of(context).pop();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content:
-              const Text('Please fill in all fields and select date and time.'),
+          content: const Text('Please fill in all fields and select time.'),
           backgroundColor: Colors.red.withOpacity(0.8),
         ),
       );
@@ -129,32 +124,6 @@ class _AddReminderState extends State<AddReminder> {
                   ],
                 ),
                 const SizedBox(width: 16),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () async {
-                        final pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime.now(),
-                          lastDate:
-                              DateTime.now().add(const Duration(days: 365)),
-                        );
-                        if (pickedDate != null) {
-                          setState(() {
-                            selectedDate = pickedDate;
-                          });
-                        }
-                      },
-                      icon: const Icon(Icons.calendar_today),
-                      tooltip: 'Select Date',
-                    ),
-                    if (selectedDate != null)
-                      Text(
-                        DateFormat.yMd().format(selectedDate!),
-                      ),
-                  ],
-                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -165,24 +134,24 @@ class _AddReminderState extends State<AddReminder> {
                   _isSelected[index] = !_isSelected[index];
                 });
               },
-              children: _days.map((day) => Text(day)).toList(),
+              children: days.map((day) => Text(day)).toList(),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const Text('Repeat Weekly:'),
-                IconButton(
-                  icon: _isWeeklyRepeatOn
-                      ? const Icon(Icons.check_box_rounded)
-                      : const Icon(Icons.square_outlined),
-                  onPressed: () {
-                    setState(() {
-                      _isWeeklyRepeatOn = !_isWeeklyRepeatOn;
-                    });
-                  },
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.end,
+            //   children: [
+            //     const Text('Repeat Weekly:'),
+            //     IconButton(
+            //       icon: _isWeeklyRepeatOn
+            //           ? const Icon(Icons.check_box_rounded)
+            //           : const Icon(Icons.square_outlined),
+            //       onPressed: () {
+            //         setState(() {
+            //           _isWeeklyRepeatOn = !_isWeeklyRepeatOn;
+            //         });
+            //       },
+            //     ),
+            //   ],
+            // ),
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.all(40.0),

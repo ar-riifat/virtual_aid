@@ -7,8 +7,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../snackBar.dart';
 
 class BottomEditProfilePage extends StatefulWidget {
-  const BottomEditProfilePage({Key? key}) : super(key: key);
-
   @override
   State<BottomEditProfilePage> createState() => _BottomEditProfilePageState();
 }
@@ -126,10 +124,15 @@ class _BottomEditProfilePageState extends State<BottomEditProfilePage> {
                   },
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
                   onPressed: () {
                     updateProfile();
                   },
-                  child: const Text('Update'),
+                  child: const Text(
+                    'Update',
+                  ),
                 ),
                 const SizedBox(height: 16),
               ],

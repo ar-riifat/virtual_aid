@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Authentication/AuthPage.dart';
 import 'Homepage/HomePage.dart';
+import 'snackBar.dart';
 //import '/Doctor Appoinment/HomeScreen.dart';
 //import 'Doctor Appoinment/DoctorDetails.dart';
 
@@ -59,7 +60,9 @@ class MainPage extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return const Center(child: Text('Something went wrong!'));
+              return const Center(
+                child: Text('Something went wrong!'),
+              );
             } else if (snapshot.hasData) {
               final user = snapshot.data!;
               if (user.emailVerified) {

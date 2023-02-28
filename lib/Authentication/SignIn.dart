@@ -46,6 +46,11 @@ class _SignInState extends State<SignIn> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null && !user.emailVerified) {
+        CustomSnackBar.showSnackBar(context, 'Verify your email first');
+        await FirebaseAuth.instance.signOut();
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found' ||
           e.code == 'wrong-password' ||
@@ -103,8 +108,8 @@ class _SignInState extends State<SignIn> {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your email address';
                         }
-                        if (!value.contains('@')) {
-                          return 'Please enter a valid email address';
+                        if (!value.contains('@') || !value.contains('.')) {
+                          return 'Invalid email address.';
                         }
                         return null;
                       },
